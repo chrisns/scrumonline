@@ -13,7 +13,7 @@ jobs:
       - name: build fauria/lamp
         run: docker build -t fauria/lamp docker-lamp
 
-      - name: Build Toxantron/scrumonline/
+      - name: Build Toxantron/scrumonline
         run: docker build -t ${GITHUB_REPOSITORY}:latest scrumonline/docker
 
       - name: Build our stateless version
@@ -29,21 +29,21 @@ jobs:
       - name: Tag
         run: docker tag ${GITHUB_REPOSITORY}:latest ${GITHUB_REPOSITORY}:${GITHUB_SHA}
 
-      - name: Push latest
+      - name: Push ${GITHUB_REPOSITORY}:latest
         if: github.ref == 'refs/heads/master'
         run: docker push ${GITHUB_REPOSITORY}:latest
 
-      - name: Push sha
+      - name: Push ${GITHUB_REPOSITORY}:SHA
         if: github.ref == 'refs/heads/master'
         run: docker push ${GITHUB_REPOSITORY}:${GITHUB_SHA}
 
-      - name: Tag
+      - name: Tag ${GITHUB_REPOSITORY}-stateless
         run: docker tag ${GITHUB_REPOSITORY}-stateless:latest ${GITHUB_REPOSITORY}-stateless:${GITHUB_SHA}
 
-      - name: Push latest
+      - name: Push ${GITHUB_REPOSITORY}-stateless:latest
         if: github.ref == 'refs/heads/master'
         run: docker push ${GITHUB_REPOSITORY}-stateless:latest
 
-      - name: Push sha
+      - name: Push ${GITHUB_REPOSITORY}-stateless:SHA
         if: github.ref == 'refs/heads/master'
         run: docker push ${GITHUB_REPOSITORY}-stateless:${GITHUB_SHA}
