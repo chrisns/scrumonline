@@ -14,7 +14,7 @@ This is the vanilla version, so follow the [official docs](https://github.com/To
 [![](https://images.microbadger.com/badges/image/chrisns/scrumonline.svg)](https://microbadger.com/images/chrisns/scrumonline)
 [![](https://images.microbadger.com/badges/version/chrisns/scrumonline.svg)](https://microbadger.com/images/chrisns/scrumonline)
 
-## [Stateless](chrisns/scrumonline-stateless)
+## [Stateless](https://hub.docker.com/r/chrisns/scrumonline-stateless)
 
 > You can obviously make it stateful if you like by volume mounting
 
