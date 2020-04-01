@@ -1,0 +1,6 @@
+[submodule "scrumonline"]
+	path = scrumonline
+	url = https://github.com/Toxantron/scrumonline
+[submodule "docker-lamp"]
+	path = docker-lamp
+	url = https://github.com/fauria/docker-lamp
