@@ -1,17 +1,29 @@
-FROM chrisns/scrumonline:latest as original
-# no otherway to remove the volumes, sad face!
-FROM scratch
-COPY --from=original / /
+# build scrumonline
+FROM php:7.0-cli-alpine as builder
+COPY scrumonline /scrumonline
+RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php --
+RUN php composer.phar install -n -d /scrumonline
+RUN touch /scrumonline/src/sponsors.php
+RUN mv /scrumonline/src/sample-config.php /scrumonline/src/config.php
+COPY config.php /tmp
+RUN cat /tmp/config.php >> /scrumonline/src/config.php
+COPY mysql_init.sh /scrumonline/
 
-WORKDIR /var/www/scrumonline
-COPY scrumonline/ ./
-RUN composer install -nd /var/www/scrumonline
+# build the web frontend
+FROM php:7.0-apache
+ENV DB_NAME=scrum_online
+ENV DB_USER=root
+ENV DB_PASS=passwd
+ENV DB_HOST=127.0.0.1
+ENV HOST="http://localhost:80"
 
-COPY mysql.cnf /etc/mysql/conf.d/mysql-hack.cnf
-RUN cp src/sample-config.php src/config.php
-RUN echo '$host = $_ENV["HOST"];' >> src/config.php
+RUN a2enmod rewrite
 
-RUN /utils/mysql_init.sh && mysqladmin shutdown && echo "" > /utils/mysql_init.sh
+RUN docker-php-ext-install pdo_mysql
 
-CMD /utils/run.sh
+WORKDIR /scrumonline
 
+COPY --from=builder /scrumonline /scrumonline 
+
+RUN rm -r /var/www/html && \
+  ln -s /scrumonline/src/ /var/www/html
