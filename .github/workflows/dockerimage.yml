@@ -26,7 +26,7 @@ jobs:
       - name: Docker Tags
         run: |
           docker tag ${GITHUB_REPOSITORY}:latest ${GITHUB_REPOSITORY}:latest-${GITHUB_SHA}
-          docker tag ${GITHUB_REPOSITORY}:bundle ${GITHUB_REPOSITORY}:bundle-${GITHUB_SHA}
+          docker tag ${GITHUB_REPOSITORY}:bundled ${GITHUB_REPOSITORY}:bundled-${GITHUB_SHA}
 
       - name: Push ${GITHUB_REPOSITORY}:latest
         if: github.ref == 'refs/heads/master'
@@ -34,8 +34,8 @@ jobs:
           docker push ${GITHUB_REPOSITORY}:latest
           docker push ${GITHUB_REPOSITORY}:latest-${GITHUB_SHA}
 
-      - name: Push ${GITHUB_REPOSITORY}:bundle
+      - name: Push ${GITHUB_REPOSITORY}:bundled
         if: github.ref == 'refs/heads/master'
         run: |
-          docker push ${GITHUB_REPOSITORY}:bundle
-          docker push ${GITHUB_REPOSITORY}:bundle-${GITHUB_SHA}
+          docker push ${GITHUB_REPOSITORY}:bundled
+          docker push ${GITHUB_REPOSITORY}:bundled-${GITHUB_SHA}
