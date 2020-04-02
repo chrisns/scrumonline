@@ -1,3 +1,2 @@
 [mysqld]
 skip-grant-tables
-skip-networking
