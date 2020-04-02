@@ -1,7 +1,7 @@
 FROM chrisns/scrumonline
 
 RUN apt-get update && \
-  apt-get install -y mysql-server && \
+  apt-get install -y default-mysql-server && \
   apt-get clean
 
 COPY mysql.cnf /etc/mysql/conf.d/mysql-hack.cnf
