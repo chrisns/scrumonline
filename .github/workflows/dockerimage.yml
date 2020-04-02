@@ -10,14 +10,11 @@ jobs:
         with:
           submodules: true
 
-      - name: build fauria/lamp
-        run: docker build -t fauria/lamp docker-lamp
+      - name: Build ${GITHUB_REPOSITORY}:latest
+        run: docker build -t ${GITHUB_REPOSITORY}:latest .
 
-      - name: Build Toxantron/scrumonline
-        run: docker build -t ${GITHUB_REPOSITORY}:latest scrumonline/docker
-
-      - name: Build our stateless version
-        run: docker build -t ${GITHUB_REPOSITORY}-stateless:latest .
+      - name: Build ${GITHUB_REPOSITORY}:bundled
+        run: docker build -t ${GITHUB_REPOSITORY}:bundled -f Dockerfile.mysql .
 
       - name: Docker login
         if: github.ref == 'refs/heads/master'
@@ -26,24 +23,19 @@ jobs:
           docker_password: ${{ secrets.docker_password }}
         run: docker login  -u $docker_username -p ${docker_password}
 
-      - name: Tag
-        run: docker tag ${GITHUB_REPOSITORY}:latest ${GITHUB_REPOSITORY}:${GITHUB_SHA}
+      - name: Docker Tags
+        run: |
+          docker tag ${GITHUB_REPOSITORY}:latest ${GITHUB_REPOSITORY}:latest-${GITHUB_SHA}
+          docker tag ${GITHUB_REPOSITORY}:bundle ${GITHUB_REPOSITORY}:bundle-${GITHUB_SHA}
 
       - name: Push ${GITHUB_REPOSITORY}:latest
         if: github.ref == 'refs/heads/master'
-        run: docker push ${GITHUB_REPOSITORY}:latest
+        run: |
+          docker push ${GITHUB_REPOSITORY}:latest
+          docker push ${GITHUB_REPOSITORY}:latest-${GITHUB_SHA}
 
-      - name: Push ${GITHUB_REPOSITORY}:SHA
+      - name: Push ${GITHUB_REPOSITORY}:bundle
         if: github.ref == 'refs/heads/master'
-        run: docker push ${GITHUB_REPOSITORY}:${GITHUB_SHA}
-
-      - name: Tag ${GITHUB_REPOSITORY}-stateless
-        run: docker tag ${GITHUB_REPOSITORY}-stateless:latest ${GITHUB_REPOSITORY}-stateless:${GITHUB_SHA}
-
-      - name: Push ${GITHUB_REPOSITORY}-stateless:latest
-        if: github.ref == 'refs/heads/master'
-        run: docker push ${GITHUB_REPOSITORY}-stateless:latest
-
-      - name: Push ${GITHUB_REPOSITORY}-stateless:SHA
-        if: github.ref == 'refs/heads/master'
-        run: docker push ${GITHUB_REPOSITORY}-stateless:${GITHUB_SHA}
+        run: |
+          docker push ${GITHUB_REPOSITORY}:bundle
+          docker push ${GITHUB_REPOSITORY}:bundle-${GITHUB_SHA}
