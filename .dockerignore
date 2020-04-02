@@ -1,0 +1,8 @@
+scrumonline/docker
+scrumonline/.vscode
+scrumonline/bin
+scrumonline/doc
+scrumonline/Vagrantfile
+scrumonline/.gitignore
+scrumonline/build.sh
+scrumonline/README.md
