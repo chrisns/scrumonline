@@ -51,3 +51,4 @@ Without the volumes and persistence you can just do a docker run as above (even 
 - [ ] kustomize template
 - [ ] docker compose
 - [ ] Provide google cloud run config
+- [ ] Update PHP
