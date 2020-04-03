@@ -6,4 +6,4 @@ $conn = array(
     'driver' => 'pdo_mysql',
 );
 
-$host = $_ENV["DB_HOST"];
+$host = $_ENV["HOST"];
