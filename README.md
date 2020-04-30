@@ -37,7 +37,7 @@ docker run \
 docker run \
   -v ${PWD}/db:/var/lib/mysql
   chrisns/scrumonline:bundled \
-  /mysql_init.sh
+  ./mysql_init.sh
 ```
 
 ## Notes
