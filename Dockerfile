@@ -10,7 +10,7 @@ RUN cat /tmp/config.php >> /scrumonline/src/config.php
 COPY mysql_init.sh /scrumonline/
 
 # build the web frontend
-FROM php:7.4.11-cli-alpine
+FROM php:7.4.11-apache
 ENV DB_NAME=scrum_online
 ENV DB_USER=root
 ENV DB_PASS=passwd
