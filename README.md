@@ -12,7 +12,7 @@ You can then deploy this with docker/docker-compose/docker-swarm/AKS/EKS/ECS/k8s
 ```bash
 docker run \
   -p 8080:80 \
-  -e ENV DB_NAME=scrum_online \
+  -e DB_NAME=scrum_online \
   -e DB_USER=root \
   -e DB_PASS=passwd \
   -e DB_HOST=192.168.0.1 \
