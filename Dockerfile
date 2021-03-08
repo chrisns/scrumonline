@@ -1,5 +1,5 @@
 # build scrumonline
-FROM php:7.4.11-cli-alpine as builder
+FROM php:8.0.3-cli-alpine as builder
 COPY scrumonline /scrumonline
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php --
 RUN php composer.phar install -n -d /scrumonline
@@ -10,7 +10,7 @@ RUN cat /tmp/config.php >> /scrumonline/src/config.php
 COPY mysql_init.sh /scrumonline/
 
 # build the web frontend
-FROM php:7.4.11-apache
+FROM php:8.0.3-cli-alpine
 ENV DB_NAME=scrum_online
 ENV DB_USER=root
 ENV DB_PASS=passwd
