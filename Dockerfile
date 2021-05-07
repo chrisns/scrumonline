@@ -1,5 +1,5 @@
 # build scrumonline
-FROM php:7.4.11-cli-alpine as builder
+FROM php:7.4.19-cli-alpine as builder
 COPY scrumonline /scrumonline
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php --
 RUN php composer.phar install -n -d /scrumonline
