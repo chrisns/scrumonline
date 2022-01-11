@@ -1,4 +1,4 @@
-FROM chrisns/scrumonline
+FROM chrisns/scrumonline@sha256:c9c6e4251beed9d5bccc580cc0f992023a93b7421d2ec51ca0e3c6e3fc78e31a
 
 RUN apt-get update && \
   apt-get install -y default-mysql-server && \
